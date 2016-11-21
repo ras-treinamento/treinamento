@@ -6,7 +6,6 @@ var _ = require('lodash');
 // All Generics Configurations
 // ============================================
 var config = {
-  env: process.env.NODE_ENV || 'development',
   root: path.normalize(__dirname + '/../../../'),
   resources: {
     routes: path.normalize(__dirname + '/../../../server/api/routes'),
@@ -18,8 +17,8 @@ var config = {
     errors: path.normalize(__dirname + '/../../../server/errors'),
     images: path.normalize(__dirname + '/../../../images')
   },
-  ip: process.env.IP || '127.0.0.1',
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
+  ip: process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
   secrets: 'supersecret'
 };
 
