@@ -4,10 +4,11 @@
   "description": "",
   "main": "server/server.js",
   "engines": {
-    "node": "v4.2.3"
+    "node": "*",
+    "npm": "*"
   },
   "scripts": {
-    "start": "nodemon server/server.js",
+    "start": "node server/server.js",
     "test": "gulp test",
     "dev": "NODE_ENV=development && nodemon --debug server/server.js & node-inspector",
     "prod": "NODE_ENV=production && nodemon server/server.js"
