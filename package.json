@@ -8,8 +8,7 @@
     "npm": "*"
   },
   "scripts": {
-    "start": "node server/server.js",
-    "postinstall": "HOME=$OPENSHIFT_REPO_DIR bower install || bower install"
+    "start": "node server/server.js"
   },
   "dependencies": {
     "bluebird": "^3.3.3",
