@@ -10,6 +10,23 @@ body {
 /*
  * Signin
  */
+ .container-login > img {
+  position: fixed; 
+  top:0; left: 0; 
+  width: 100%; 
+  height: 100%;
+  opacity: 0.4; 
+  filter: alpha(opacity=40);
+  z-index: -1;
+ }
+ .container-login > div {
+  background-color: #FFF; 
+  width: 400px; 
+  height: 301px; 
+  margin: 0 auto;
+  opacity: 0.9; 
+  filter: alpha(opacity=90);
+ }
 .form-signin {
   max-width: 330px;
   padding: 15px;

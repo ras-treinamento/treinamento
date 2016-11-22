@@ -1,7 +1,7 @@
 'use strict';
 
-app.controller('AuthController', ['$scope', '$localStorage', '$state', 'AuthService',
-  function ($scope, $localStorage, $state, AuthService) {
+app.controller('AuthController', ['$rootScope', '$scope', '$state', 'AuthService',
+  function ($rootScope, $scope, $state, AuthService) {
 
 	var init = function () {
 	};
@@ -9,19 +9,15 @@ app.controller('AuthController', ['$scope', '$localStorage', '$state', 'AuthServ
 	$scope.login = function(username, password) {
 		AuthService.login(username, password)
 			.then(function(data) {
-				if (data.token) {
-               $localStorage.currentUser = { profile: data.profile, token: data.token };
-               goToIndex();
-            }
+				if (!data.token) return;
+				AuthService.createToken(data.token);
+               	AuthService.createUser(data.profile);              	
+	        	$rootScope.goToIndex();         
 			})
-          .catch(function(e) {
-          	console.log(e);
-			})
+          	.catch(function(e) {
+          		console.log(e);
+			});
 	};
-
-	var goToIndex = function() {
-		$state.go('app.java.start');
-	}
 
   	init();
 

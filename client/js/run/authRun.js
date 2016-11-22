@@ -1,19 +1,18 @@
-app.run(['$rootScope', '$state', '$localStorage', '$http', 
-    function ($rootScope, $state, $localStorage, $http) {
-    
-    if ($localStorage.currentUser) {
-        // $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.currentUser.token;
-    }
+app.run(['$rootScope', 'AuthService', 'RouteService', 
+    function ($rootScope, AuthService, RouteService) {    
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        if(toState.name !== 'auth.login') {
-            if (!$localStorage.currentUser) {
-                event.preventDefault(); 
-                $state.go('auth.login');
-            } else {
-                $rootScope.currentUser = $localStorage.currentUser;
-            }
-        } 
+        if(!RouteService.isPublic(toState.name)) {
+            AuthService.isAuthenticated(AuthService.getToken())
+                .then(function(data) {
+                    $rootScope.user = AuthService.getUser();
+                    $rootScope.goTo(toState, toParams); 
+                })
+                .catch(function(e) {
+                    event.preventDefault(); 
+                    $rootScope.goToLogin();                   
+                });
+        }
     });
 
 }]);
