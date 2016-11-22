@@ -7,12 +7,16 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationP
     $urlRouterProvider.otherwise('/404');
 
     $stateProvider
+
+      /*
+       * Application
+       */
       .state('app', {
         templateUrl: 'partials/app/app.html'
       })
 
       /**
-       *    'Java'
+       * Java
        */
       .state('app.java', {
         abstract: true,
@@ -28,6 +32,18 @@ app.config(['$stateProvider', '$httpProvider', '$urlRouterProvider', '$locationP
         url: '/introduction',
         templateUrl: 'partials/app/java/introduction.html',
         controller: 'JavaController'
+      })
+
+      /**
+       * Auth
+       */
+      .state('auth', {
+        templateUrl: 'partials/auth/auth.html'
+      })
+      .state('auth.login', {
+        url: '/login',
+        templateUrl: 'partials/auth/login.html',
+        controller: 'AuthController'
       });
 
   }])
